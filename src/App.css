@@ -1,3 +1,23 @@
+:root {
+  --bg: #ffffff;
+  --text: #1e293b;
+  --card-bg: #f8fafc;
+  --border: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #0f172a;
+  --button-text: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --text: #e2e8f0;
+  --card-bg: #1e293b;
+  --border: #334155;
+  --muted: #64748b;
+  --accent: #3b82f6;
+  --button-text: #ffffff;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,8 +26,8 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #ffffff;
-  color: #1e293b;
+  background: var(--bg);
+  color: var(--text);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -15,7 +35,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 70px; /* 给底部导航留空间 */
+  padding-bottom: 75px;
+  position: relative;
 }
 
 .main-content {
@@ -23,19 +44,19 @@ body {
   overflow-y: auto;
 }
 
-/* 底部导航栏 - 平板触控友好 */
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 64px;
-  background: #ffffff;
-  border-top: 1px solid #e2e8f0;
+  height: 70px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  z-index: 100;
 }
 
 .nav-item {
@@ -44,16 +65,74 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  color: #94a3b8;
+  font-size: 11px;
+  color: var(--muted);
   text-decoration: none;
-  padding: 8px 0;
+  padding: 4px 0;
   transition: color 0.2s;
-  min-height: 44px; /* 满足最小触摸面积 */
+  min-height: 44px;
   min-width: 44px;
 }
 
 .nav-item.active {
-  color: #0f172a;
+  color: var(--accent);
   font-weight: 600;
+}
+
+.nav-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.nav-label {
+  margin-top: 2px;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  background: var(--card-bg);
+  border: none;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 通用卡片 */
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+button {
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: var(--button-text);
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+input, textarea, select {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 8px;
 }
