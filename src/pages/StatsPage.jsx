@@ -13,7 +13,6 @@ function StatsPage() {
 
   useEffect(() => {
     loadStats();
-    // 提醒定时器
     if (reminderEnabled && reminderTime) {
       Notification.requestPermission();
       const now = new Date();
@@ -24,7 +23,7 @@ function StatsPage() {
       const timeout = target - now;
       const timer = setTimeout(() => {
         if (Notification.permission === 'granted') {
-          new Notification('学习提醒', { body: '该复习单词啦！' });
+          new Notification('学习提醒', { body: '该复习啦！' });
         }
       }, timeout);
       return () => clearTimeout(timer);
@@ -37,7 +36,6 @@ function StatsPage() {
     const todayStart = new Date();
     todayStart.setHours(0,0,0,0);
     const todayReviews = reviews.filter(r => r.lastReviewDate && new Date(r.lastReviewDate) >= todayStart).length;
-    // 简单定义掌握：间隔大于21天
     const mastered = reviews.filter(r => r.intervalDays >= 21).length;
     setStats({
       totalWords: words.length,
@@ -47,12 +45,14 @@ function StatsPage() {
     });
   };
 
-  // 导出数据
   const exportData = async () => {
     const words = await db.words.toArray();
     const reviews = await db.reviews.toArray();
     const notes = await db.notes.toArray();
-    const json = JSON.stringify({ words, reviews, notes }, null, 2);
+    const grammar = await db.grammar.toArray();
+    const grammarReviews = await db.grammarReviews.toArray();
+    const writing = await db.writing.toArray();
+    const json = JSON.stringify({ words, reviews, notes, grammar, grammarReviews, writing }, null, 2);
     const blob = new Blob([json], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -61,7 +61,6 @@ function StatsPage() {
     a.click();
   };
 
-  // 导入数据
   const importData = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -72,6 +71,9 @@ function StatsPage() {
         if (data.words) await db.words.bulkPut(data.words);
         if (data.reviews) await db.reviews.bulkPut(data.reviews);
         if (data.notes) await db.notes.bulkPut(data.notes);
+        if (data.grammar) await db.grammar.bulkPut(data.grammar);
+        if (data.grammarReviews) await db.grammarReviews.bulkPut(data.grammarReviews);
+        if (data.writing) await db.writing.bulkPut(data.writing);
         alert('导入成功！');
         loadStats();
       } catch (err) {
