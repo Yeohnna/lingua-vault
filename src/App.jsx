@@ -4,6 +4,7 @@ import ReviewPage from './pages/ReviewPage';
 import NotesPage from './pages/NotesPage';
 import StatsPage from './pages/StatsPage';
 import ReadingHelperPage from './pages/ReadingHelperPage';
+import GrammarPage from './pages/GrammarPage';
 import { useTheme } from './context/ThemeContext';
 import './App.css';
 
@@ -17,9 +18,10 @@ function App() {
           <Routes>
             <Route path="/" element={<WordsPage />} />
             <Route path="/review" element={<ReviewPage />} />
+            <Route path="/grammar" element={<GrammarPage />} />
             <Route path="/notes" element={<NotesPage />} />
-            <Route path="/stats" element={<StatsPage />} />
             <Route path="/read" element={<ReadingHelperPage />} />
+            <Route path="/stats" element={<StatsPage />} />
           </Routes>
         </main>
 
@@ -31,6 +33,10 @@ function App() {
           <NavLink to="/review" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon">🔄</span>
             <span className="nav-label">复习</span>
+          </NavLink>
+          <NavLink to="/grammar" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+            <span className="nav-icon">📐</span>
+            <span className="nav-label">语法</span>
           </NavLink>
           <NavLink to="/notes" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon">📝</span>
