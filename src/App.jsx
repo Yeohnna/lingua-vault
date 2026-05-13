@@ -7,6 +7,7 @@ import ReadingHelperPage from './pages/ReadingHelperPage';
 import GrammarPage from './pages/GrammarPage';
 import WritingPage from './pages/WritingPage';
 import SpeakingPage from './pages/SpeakingPage';
+import GamePage from './pages/GamePage';
 import { useTheme } from './context/ThemeContext';
 import './App.css';
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/write" element={<WritingPage />} />
             <Route path="/speak" element={<SpeakingPage />} />
             <Route path="/stats" element={<StatsPage />} />
+            <Route path="/game" element={<GamePage />} />
           </Routes>
         </main>
 
@@ -53,6 +55,9 @@ function App() {
           </NavLink>
           <NavLink to="/stats" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             <span className="nav-icon">📊</span><span className="nav-label">统计</span>
+          </NavLink>
+          <NavLink to="/game" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+            <span className="nav-icon">🎮</span><span className="nav-label">游戏</span>
           </NavLink>
         </nav>
 
